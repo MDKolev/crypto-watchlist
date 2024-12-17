@@ -20,14 +20,19 @@ public class Watchlist {
     @Column()
     private List<String> coins;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fiat_currency")
+    private FiatCurrency fiatCurrency;
+
     public Watchlist() {
     }
 
-    public Watchlist(long id, long userId, String watchlistName, List<String> coins) {
+    public Watchlist(long id, long userId, String watchlistName, List<String> coins, FiatCurrency fiatCurrency) {
         this.id = id;
         this.userId = userId;
         this.watchlistName = watchlistName;
         this.coins = coins;
+        this.fiatCurrency = fiatCurrency;
     }
 
     public long getId() {
@@ -56,5 +61,13 @@ public class Watchlist {
 
     public void setCoins(List<String> coins) {
         this.coins = coins;
+    }
+
+    public FiatCurrency getFiatCurrency() {
+        return fiatCurrency;
+    }
+
+    public void setFiatCurrency(FiatCurrency fiatCurrency) {
+        this.fiatCurrency = fiatCurrency;
     }
 }
