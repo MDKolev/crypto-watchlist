@@ -14,9 +14,7 @@ public class WatchlistServiceImpl implements WatchlistService{
     }
 
     @Override
-    public Watchlist createWatchlist(String watchlistName) {
-        Watchlist newWatchlist = new Watchlist();
-        newWatchlist.setWatchlistName(watchlistName);
-        return watchlistRepository.save(newWatchlist);
+    public Watchlist createWatchlist(Watchlist watchlist) {
+        return watchlistRepository.save(watchlist);
     }
 }
