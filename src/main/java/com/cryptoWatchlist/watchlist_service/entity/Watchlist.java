@@ -1,15 +1,23 @@
 package com.cryptoWatchlist.watchlist_service.entity;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
 public class Watchlist {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true, nullable = false, name = "user_id")
     private long userId;
 
+    @Column(unique = true, nullable = false, name = "watchlist_name")
     private String watchlistName;
 
+    @Column()
     private List<String> coins;
 
     public Watchlist() {
