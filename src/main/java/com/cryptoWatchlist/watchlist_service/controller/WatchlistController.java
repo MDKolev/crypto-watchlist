@@ -3,13 +3,11 @@ package com.cryptoWatchlist.watchlist_service.controller;
 import com.cryptoWatchlist.watchlist_service.entity.Watchlist;
 import com.cryptoWatchlist.watchlist_service.exception.WatchlistNotFoundException;
 import com.cryptoWatchlist.watchlist_service.service.WatchlistService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/watchlists")
@@ -47,6 +45,12 @@ public class WatchlistController {
         } catch (WatchlistNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getLocalizedMessage());
         }
+    }
+
+    @PutMapping("/{id}/rename")
+    public ResponseEntity<Watchlist> renameWatchlist(@PathVariable long id, @RequestBody String newName) {
+        Watchlist renamedWatchlist = watchlistService.renameWatchlist(id, newName);
+        return new ResponseEntity<>(renamedWatchlist, HttpStatus.OK);
     }
 
 }
