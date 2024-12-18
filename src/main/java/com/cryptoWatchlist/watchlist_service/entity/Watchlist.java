@@ -21,8 +21,8 @@ public class Watchlist {
     private List<String> coins;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "fiat_currency")
-    private FiatCurrency fiatCurrency;
+    @Column(name = "fiat_currency", nullable = false)
+    private FiatCurrency fiatCurrency = FiatCurrency.USD;
 
     public Watchlist() {
     }
@@ -32,7 +32,7 @@ public class Watchlist {
         this.userId = userId;
         this.watchlistName = watchlistName;
         this.coins = coins;
-        this.fiatCurrency = fiatCurrency;
+        this.fiatCurrency = fiatCurrency != null ? fiatCurrency : FiatCurrency.USD;
     }
 
     public long getId() {
@@ -68,6 +68,6 @@ public class Watchlist {
     }
 
     public void setFiatCurrency(FiatCurrency fiatCurrency) {
-        this.fiatCurrency = fiatCurrency;
+        this.fiatCurrency = fiatCurrency !=null ? fiatCurrency : FiatCurrency.USD;
     }
 }
