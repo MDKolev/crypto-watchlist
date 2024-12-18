@@ -4,6 +4,8 @@ import com.cryptoWatchlist.watchlist_service.entity.Watchlist;
 import com.cryptoWatchlist.watchlist_service.repository.WatchlistRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WatchlistServiceImpl implements WatchlistService{
 
@@ -17,4 +19,10 @@ public class WatchlistServiceImpl implements WatchlistService{
     public Watchlist createWatchlist(Watchlist watchlist) {
         return watchlistRepository.save(watchlist);
     }
+
+    @Override
+    public List<Watchlist> getAllWatchlists() {
+        return watchlistRepository.findAll();
+    }
+
 }
