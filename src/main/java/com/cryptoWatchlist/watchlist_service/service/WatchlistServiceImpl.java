@@ -6,7 +6,6 @@ import com.cryptoWatchlist.watchlist_service.repository.WatchlistRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WatchlistServiceImpl implements WatchlistService{
@@ -39,6 +38,14 @@ public class WatchlistServiceImpl implements WatchlistService{
             throw new WatchlistNotFoundException("Could not find watchlist with ID: " + id);
         }
         watchlistRepository.deleteById(id);
+    }
+
+    @Override
+    public Watchlist renameWatchlist(long id, String newName) {
+        String updatedName = newName.trim();
+        Watchlist watchlist = getWatchlistById(id);
+        watchlist.setWatchlistName(updatedName);
+        return watchlistRepository.save(watchlist);
     }
 
 }

@@ -13,4 +13,6 @@ public interface WatchlistService {
     Watchlist getWatchlistById(long id);
 
     void deleteWatchlistById(long id);
+
+    Watchlist renameWatchlist(long id, String newName);
 }
