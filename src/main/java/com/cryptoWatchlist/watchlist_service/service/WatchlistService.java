@@ -11,4 +11,6 @@ public interface WatchlistService {
     List<Watchlist> getAllWatchlists();
 
     Watchlist getWatchlistById(long id);
+
+    void deleteWatchlistById(long id);
 }

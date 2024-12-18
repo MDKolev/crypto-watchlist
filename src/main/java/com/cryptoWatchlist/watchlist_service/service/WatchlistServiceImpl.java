@@ -33,4 +33,12 @@ public class WatchlistServiceImpl implements WatchlistService{
                 .orElseThrow(() -> new WatchlistNotFoundException("Could not find watchlist with ID: " + id));
     }
 
+    @Override
+    public void deleteWatchlistById(long id) {
+        if(!watchlistRepository.existsById(id)) {
+            throw new WatchlistNotFoundException("Could not find watchlist with ID: " + id);
+        }
+        watchlistRepository.deleteById(id);
+    }
+
 }
