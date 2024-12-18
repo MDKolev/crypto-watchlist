@@ -1,6 +1,7 @@
 package com.cryptoWatchlist.watchlist_service.controller;
 
 import com.cryptoWatchlist.watchlist_service.entity.Watchlist;
+import com.cryptoWatchlist.watchlist_service.exception.WatchlistNotFoundException;
 import com.cryptoWatchlist.watchlist_service.service.WatchlistService;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,16 @@ public class WatchlistController {
     public ResponseEntity<Watchlist> getWatchlistById(@PathVariable long id) {
         Watchlist watchlist = watchlistService.getWatchlistById(id);
         return new ResponseEntity<>(watchlist, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteWatchlistById(@PathVariable long id) {
+        try {
+            watchlistService.deleteWatchlistById(id);
+            return ResponseEntity.ok("Watchlist with ID " +id + " was successfully deleted!");
+        } catch (WatchlistNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getLocalizedMessage());
+        }
     }
 
 }
