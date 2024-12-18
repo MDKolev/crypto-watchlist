@@ -9,4 +9,6 @@ public interface WatchlistService {
     Watchlist createWatchlist(Watchlist watchlistName);
 
     List<Watchlist> getAllWatchlists();
+
+    Watchlist getWatchlistById(long id);
 }
