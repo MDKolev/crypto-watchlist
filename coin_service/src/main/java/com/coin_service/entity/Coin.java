@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 public class Coin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String api_id;
 
     @Column
@@ -38,6 +37,10 @@ public class Coin {
 
     public String getApi_id() {
         return api_id;
+    }
+
+    public void setApi_id(String api_id) {
+        this.api_id = api_id;
     }
 
     public String getName() {
