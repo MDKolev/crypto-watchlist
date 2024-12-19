@@ -1,4 +1,4 @@
-package com.cryptoWatchlist.watchlist_service.exception;
+package com.watchlist_service.exception;
 
 public class WatchlistNotFoundException extends RuntimeException {
 

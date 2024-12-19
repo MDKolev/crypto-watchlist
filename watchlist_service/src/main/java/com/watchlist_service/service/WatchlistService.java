@@ -1,6 +1,8 @@
-package com.cryptoWatchlist.watchlist_service.service;
+package com.watchlist_service.service;
 
-import com.cryptoWatchlist.watchlist_service.entity.Watchlist;
+
+
+import com.watchlist_service.entity.Watchlist;
 
 import java.util.List;
 

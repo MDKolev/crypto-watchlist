@@ -1,14 +1,14 @@
-package com.cryptoWatchlist.watchlist_service.service;
+package com.watchlist_service.service;
 
-import com.cryptoWatchlist.watchlist_service.entity.Watchlist;
-import com.cryptoWatchlist.watchlist_service.exception.WatchlistNotFoundException;
-import com.cryptoWatchlist.watchlist_service.repository.WatchlistRepository;
+import com.watchlist_service.entity.Watchlist;
+import com.watchlist_service.exception.WatchlistNotFoundException;
+import com.watchlist_service.repository.WatchlistRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class WatchlistServiceImpl implements WatchlistService{
+public class WatchlistServiceImpl implements WatchlistService {
 
     private final WatchlistRepository watchlistRepository;
 

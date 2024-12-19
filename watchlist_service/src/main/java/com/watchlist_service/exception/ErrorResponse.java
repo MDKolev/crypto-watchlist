@@ -1,4 +1,4 @@
-package com.cryptoWatchlist.watchlist_service.exception;
+package com.watchlist_service.exception;
 
 import org.springframework.http.HttpStatus;
 

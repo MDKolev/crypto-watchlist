@@ -1,4 +1,4 @@
-package com.cryptoWatchlist.watchlist_service.entity;
+package com.watchlist_service.entity;
 
 import jakarta.persistence.*;
 

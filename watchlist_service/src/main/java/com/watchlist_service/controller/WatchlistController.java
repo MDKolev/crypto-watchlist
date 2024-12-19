@@ -1,8 +1,8 @@
-package com.cryptoWatchlist.watchlist_service.controller;
+package com.watchlist_service.controller;
 
-import com.cryptoWatchlist.watchlist_service.entity.Watchlist;
-import com.cryptoWatchlist.watchlist_service.exception.WatchlistNotFoundException;
-import com.cryptoWatchlist.watchlist_service.service.WatchlistService;
+import com.watchlist_service.entity.Watchlist;
+import com.watchlist_service.exception.WatchlistNotFoundException;
+import com.watchlist_service.service.WatchlistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
