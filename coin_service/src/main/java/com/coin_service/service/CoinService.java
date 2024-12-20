@@ -1,23 +1,18 @@
 package com.coin_service.service;
 
 import com.coin_service.entity.Coin;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import com.coin_service.mapper.ManualMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
 public class CoinService {
+
+    private final ManualMapper manualMapper;
 
     private final String API_URL = "https://api.coingecko.com/api/v3";
     private final RestTemplate restTemplate;
@@ -25,17 +20,24 @@ public class CoinService {
 //    @Value("coingecko.api.key")
 //    private String apiKey;
 
-    public CoinService(RestTemplate restTemplate) {
+    public CoinService(ManualMapper manualMapper, RestTemplate restTemplate) {
+        this.manualMapper = manualMapper;
         this.restTemplate = restTemplate;
     }
 
-    public List<Object> getAllCoins() {
+    public List<Coin> getAllCoins() {
         String url = String.format("%s/coins/markets?vs_currency=usd", API_URL);
 
-        Object[] coins = restTemplate.getForObject(url, Object[].class);
-        return Arrays.asList(coins);
+        Object[] coinObjects = restTemplate.getForObject(url, Object[].class);
+        if (coinObjects.length == 0) {
+            return List.of();
+        }
 
-
+        return Arrays.stream(coinObjects)
+                .filter(obj -> obj instanceof Map)
+                .map(manualMapper::mapObjectToCoin)
+                .collect(Collectors.toList());
     }
+
 }
 
