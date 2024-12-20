@@ -2,6 +2,7 @@ package com.coin_service.mapper;
 
 import com.coin_service.entity.Coin;
 
+import java.time.Instant;
 import java.util.Map;
 
 public class ManualMapper {
@@ -19,6 +20,7 @@ public class ManualMapper {
         }
         coin.setPriceChange24h((Double) map.get("price_change_24h"));
         coin.setPercentageChange24h((Double) map.get("price_change_percentage_24h"));
+        coin.setLastUpdated(Instant.parse((String) map.get("last_updated")));
 
         return coin;
     }
