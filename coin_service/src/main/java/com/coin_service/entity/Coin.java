@@ -2,6 +2,8 @@ package com.coin_service.entity;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 public class Coin {
 
@@ -23,16 +25,20 @@ public class Coin {
     @Column(name = "percentage_change_24h")
     private double percentageChange24h;
 
+    @Column(name = "last_updated")
+    private Instant lastUpdated;
+
     public Coin() {
     }
 
-    public Coin(String api_id, String name, String symbol, double currentPrice, double priceChange24h, double percentageChange24h) {
+    public Coin(String api_id, String name, String symbol, double currentPrice, double priceChange24h, double percentageChange24h, Instant lastUpdated) {
         this.api_id = api_id;
         this.name = name;
         this.symbol = symbol;
         this.currentPrice = currentPrice;
         this.priceChange24h = priceChange24h;
         this.percentageChange24h = percentageChange24h;
+        this.lastUpdated = lastUpdated;
     }
 
     public String getApi_id() {
@@ -81,5 +87,13 @@ public class Coin {
 
     public void setPercentageChange24h(double percentageChange24h) {
         this.percentageChange24h = percentageChange24h;
+    }
+
+    public Instant getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Instant lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
