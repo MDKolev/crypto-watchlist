@@ -26,6 +26,10 @@ public class CoinController {
         return coinService.getAllCoins();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Coin> getCoinByID(@PathVariable("id") String id) {
+        return coinService.getCoinById(id);
+    }
 
 
 }
