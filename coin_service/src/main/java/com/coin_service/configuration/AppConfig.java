@@ -14,7 +14,7 @@ public class AppConfig {
     }
 
     @Bean
-    public ManualMapper manualMapper() {
-        return new ManualMapper();
+    public ManualMapper manualMapper(){
+        return  new ManualMapper();
     }
 }
