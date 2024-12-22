@@ -5,6 +5,7 @@ import com.coin_service.entity.CoinDetailsForWatchlistDTO;
 import com.coin_service.mapper.ManualMapper;
 import com.coin_service.repository.CoinRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -70,6 +71,11 @@ public class CoinService {
         CoinDetailsForWatchlistDTO coinDetailsForWatchlistDTO = manualMapper.mapCoinToCoinDetailsForWatchlistDTO(coin);
 
         return ResponseEntity.ok(coinDetailsForWatchlistDTO);
+    }
+
+    @Scheduled(fixedDelay = 60000)
+    public void updateCoins() {
+        saveCoins();
     }
 
 }
