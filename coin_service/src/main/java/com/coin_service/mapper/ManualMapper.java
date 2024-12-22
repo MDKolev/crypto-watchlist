@@ -1,27 +1,16 @@
 package com.coin_service.mapper;
 
 import com.coin_service.entity.Coin;
-
-import java.time.Instant;
-import java.util.Map;
+import com.coin_service.entity.CoinDetailsForWatchlistDTO;
 
 public class ManualMapper {
 
-    public Coin mapObjectToCoin(Object obj) {
-        Map<String, Object> map = (Map<String, Object>) obj;
-        Coin coin = new Coin();
-        coin.setApi_id((String) map.get("id"));
-        coin.setName((String) map.get("name"));
-        coin.setSymbol((String) map.get("symbol"));
+    public CoinDetailsForWatchlistDTO mapCoinToCoinDetailsForWatchlistDTO(Coin coin) {
+        return new CoinDetailsForWatchlistDTO(coin.getName(),
+                coin.getSymbol(),
+                coin.getCurrent_price(),
+                coin.getPrice_change_24h(),
+                coin.getPrice_change_percentage_24h());
+    };
 
-        Number currentPrice = (Number) map.get("current_price");
-        if (currentPrice != null) {
-            coin.setCurrentPrice(currentPrice.doubleValue());
-        }
-        coin.setPriceChange24h((Double) map.get("price_change_24h"));
-        coin.setPercentageChange24h((Double) map.get("price_change_percentage_24h"));
-        coin.setLastUpdated(Instant.parse((String) map.get("last_updated")));
-
-        return coin;
-    }
 }
