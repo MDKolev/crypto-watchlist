@@ -10,7 +10,8 @@ import java.time.Instant;
 public class Coin {
 
     @Id
-    private String id;`
+    private String id;
+
 
     @Column
     private String symbol;
