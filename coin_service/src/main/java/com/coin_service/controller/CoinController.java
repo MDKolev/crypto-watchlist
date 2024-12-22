@@ -2,6 +2,7 @@ package com.coin_service.controller;
 
 import com.coin_service.entity.Coin;
 import com.coin_service.service.CoinService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class CoinController {
     @PutMapping("/save")
     public void saveCoins() {
         coinService.saveCoins();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Coin> getCoinByID(@PathVariable("id") String id) {
+        return coinService.getCoinById(id);
     }
 
 
