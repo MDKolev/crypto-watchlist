@@ -1,6 +1,7 @@
 package com.coin_service.controller;
 
 import com.coin_service.entity.Coin;
+import com.coin_service.entity.CoinDetailsForWatchlistDTO;
 import com.coin_service.service.CoinService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,10 @@ public class CoinController {
         return coinService.getCoinById(id);
     }
 
+    @GetMapping("/details/{id}")
+    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlistDTO(@PathVariable("id") String id) {
+        return coinService.getCoinDetailsForWatchlist(id);
+    }
 
 }
 
