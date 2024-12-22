@@ -21,6 +21,10 @@ public class CoinController {
         return coinService.getAllCoins();
     }
 
+    @PutMapping("/save")
+    public void saveCoins() {
+        coinService.saveCoins();
+    }
 
 
 }
