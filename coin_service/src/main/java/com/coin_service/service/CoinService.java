@@ -1,6 +1,8 @@
 package com.coin_service.service;
 
 import com.coin_service.entity.Coin;
+import com.coin_service.entity.CoinDetailsForWatchlistDTO;
+import com.coin_service.mapper.ManualMapper;
 import com.coin_service.repository.CoinRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,13 @@ public class CoinService {
 
     private final CoinRepository coinRepository;
 
+    private final ManualMapper manualMapper;
 
-    public CoinService(RestTemplate restTemplate, CoinRepository coinRepository) {
+
+    public CoinService(RestTemplate restTemplate, CoinRepository coinRepository, ManualMapper manualMapper) {
         this.restTemplate = restTemplate;
         this.coinRepository = coinRepository;
+        this.manualMapper = manualMapper;
     }
 
 //    @Value("coingecko.api.key")
@@ -57,6 +62,14 @@ public class CoinService {
         } else {
             return null;
         }
+    }
+
+    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlist(String id) {
+        Coin coin = getCoinById(id).getBody();
+
+        CoinDetailsForWatchlistDTO coinDetailsForWatchlistDTO = manualMapper.mapCoinToCoinDetailsForWatchlistDTO(coin);
+
+        return ResponseEntity.ok(coinDetailsForWatchlistDTO);
     }
 
 }
