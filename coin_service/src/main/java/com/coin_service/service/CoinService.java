@@ -48,5 +48,16 @@ public class CoinService {
         System.out.println("saved");
     }
 
+    public ResponseEntity<Coin> getCoinById(String id) {
+        Optional<Coin> coin = coinRepository.findById(id);
+
+        if (coin.isPresent()) {
+            Coin foundCoin = coin.get();
+            return ResponseEntity.ok(foundCoin);
+        } else {
+            return null;
+        }
+    }
+
 }
 
