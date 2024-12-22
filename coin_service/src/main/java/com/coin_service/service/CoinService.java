@@ -1,6 +1,7 @@
 package com.coin_service.service;
 
 import com.coin_service.entity.Coin;
+import com.coin_service.repository.CoinRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,9 +16,12 @@ public class CoinService {
 
     private final RestTemplate restTemplate;
 
+    private final CoinRepository coinRepository;
 
-    public CoinService(RestTemplate restTemplate) {
+
+    public CoinService(RestTemplate restTemplate, CoinRepository coinRepository) {
         this.restTemplate = restTemplate;
+        this.coinRepository = coinRepository;
     }
 
 //    @Value("coingecko.api.key")
@@ -35,6 +39,13 @@ public class CoinService {
         }
 
         return Arrays.asList(coins);
+    }
+
+    public void saveCoins() {
+        List<Coin> allCoins = getAllCoins();
+
+        allCoins.forEach(coinRepository::save);
+        System.out.println("saved");
     }
 
 }
