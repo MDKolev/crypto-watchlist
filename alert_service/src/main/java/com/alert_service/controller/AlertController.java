@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/alert")
 public class AlertController {
@@ -23,5 +25,10 @@ public class AlertController {
         Alert newAlert = alertService.createAlert(alert.getUserId(),
                 alert.getCoinName(), alert.getThresholdPrice());
         return new ResponseEntity<>(newAlert, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Alert>> getAllAlerts() {
+        return new ResponseEntity<>(alertService.getAllAlerts(), HttpStatus.OK);
     }
 }
