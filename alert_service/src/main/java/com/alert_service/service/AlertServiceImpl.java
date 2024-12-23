@@ -23,7 +23,6 @@ public class AlertServiceImpl implements AlertService{
         newAlert.setUserId(userId);
         newAlert.setCoinName(coinName);
         newAlert.setThresholdPrice(thresholdPRice);
-        newAlert.setTriggered(false);
         newAlert.setCreatedAt(Instant.now());
 
         return alertRepository.save(newAlert);
