@@ -1,6 +1,7 @@
 package com.alert_service.service;
 
 import com.alert_service.entity.Alert;
+import com.alert_service.exception.AlertNotFoundException;
 import com.alert_service.repository.AlertRepository;
 import com.coin_service.entity.Coin;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlertServiceImpl implements AlertService{
@@ -43,6 +45,13 @@ public class AlertServiceImpl implements AlertService{
 
     public List<Alert> getAllAlerts() {
         return alertRepository.findAll();
+    }
+
+    public void deleteAlert(Long id) {
+        if(!alertRepository.existsById(id)) {
+            throw new AlertNotFoundException("Count not find alert with ID: " + id);
+        }
+        alertRepository.deleteById(id);
     }
 
 }

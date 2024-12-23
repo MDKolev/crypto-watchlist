@@ -10,5 +10,7 @@ public interface AlertService {
 
     List<Alert> getAllAlerts();
 
+    void deleteAlert(Long id);
+
 
 }
