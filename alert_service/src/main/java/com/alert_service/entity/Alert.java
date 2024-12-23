@@ -20,7 +20,7 @@ public class Alert {
     private Double thresholdPrice;
 
     @Column
-    private boolean triggered;
+    private boolean triggered = false;
 
     private Instant createdAt;
 
