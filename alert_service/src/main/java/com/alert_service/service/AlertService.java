@@ -10,6 +10,8 @@ public interface AlertService {
 
     List<Alert> getAllAlerts();
 
+    Alert getAlertById(Long id);
+
     void deleteAlert(Long id);
 
 

@@ -47,6 +47,15 @@ public class AlertServiceImpl implements AlertService{
         return alertRepository.findAll();
     }
 
+    public Alert getAlertById(Long id) {
+        Optional<Alert> alert = alertRepository.findById(id);
+        if (alert.isPresent()) {
+            return alert.get();
+        } else {
+            throw new AlertNotFoundException("Count not find alert with ID: " + id);
+        }
+    }
+
     public void deleteAlert(Long id) {
         if(!alertRepository.existsById(id)) {
             throw new AlertNotFoundException("Count not find alert with ID: " + id);
