@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class AlertServiceImpl implements AlertService{
@@ -26,6 +27,10 @@ public class AlertServiceImpl implements AlertService{
         newAlert.setCreatedAt(Instant.now());
 
         return alertRepository.save(newAlert);
+    }
+
+    public List<Alert> getAllAlerts() {
+        return alertRepository.findAll();
     }
 
 }
