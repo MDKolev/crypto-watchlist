@@ -1,15 +1,11 @@
 package com.alert_service.controller;
 
 import com.alert_service.entity.Alert;
-import com.alert_service.service.AlertService;
+import com.alert_service.exception.AlertNotFoundException;
 import com.alert_service.service.AlertServiceImpl;
-import com.coin_service.entity.Coin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -33,5 +29,15 @@ public class AlertController {
     @GetMapping("/all")
     public ResponseEntity<List<Alert>> getAllAlerts() {
         return new ResponseEntity<>(alertService.getAllAlerts(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAlertById(@PathVariable Long id){
+        try {
+            alertService.deleteAlert(id);
+            return ResponseEntity.ok("Alert with ID " + id + " was successfully deleted!");
+        } catch (AlertNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getLocalizedMessage());
+        }
     }
 }
