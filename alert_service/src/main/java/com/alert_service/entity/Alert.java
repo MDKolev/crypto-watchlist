@@ -13,8 +13,8 @@ public class Alert {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "coin_name")
-    private String coinName;
+    @Column(name = "coin_id")
+    private String coinId;
 
     @Column(name = "threshold_price")
     private Double thresholdPrice;
@@ -27,10 +27,10 @@ public class Alert {
     public Alert() {
     }
 
-    public Alert(Long id, Long userId, String coinName, Double thresholdPrice, boolean triggered, Instant createdAt) {
+    public Alert(Long id, Long userId, String coinId, Double thresholdPrice, boolean triggered, Instant createdAt) {
         this.id = id;
         this.userId = userId;
-        this.coinName = coinName;
+        this.coinId = coinId;
         this.thresholdPrice = thresholdPrice;
         this.triggered = triggered;
         this.createdAt = createdAt;
@@ -52,12 +52,12 @@ public class Alert {
         this.userId = userId;
     }
 
-    public String getCoinName() {
-        return coinName;
+    public String getCoinId() {
+        return coinId;
     }
 
-    public void setCoinName(String coinName) {
-        this.coinName = coinName;
+    public void setCoinId(String coinId) {
+        this.coinId = coinId;
     }
 
     public Double getThresholdPrice() {
@@ -76,7 +76,7 @@ public class Alert {
         this.triggered = triggered;
     }
 
-    public Instant getCreatedAt() {
+    public Instant getCreatedAt(Instant now) {
         return createdAt;
     }
 
