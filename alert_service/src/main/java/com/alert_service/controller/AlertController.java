@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/alert")
@@ -29,6 +31,18 @@ public class AlertController {
     @GetMapping("/all")
     public ResponseEntity<List<Alert>> getAllAlerts() {
         return new ResponseEntity<>(alertService.getAllAlerts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAlertById(@PathVariable Long id) {
+        try {
+        Alert alert = alertService.getAlertById(id);
+        return new ResponseEntity<>(alert, HttpStatus.FOUND);
+        } catch (AlertNotFoundException ex) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", ex.getLocalizedMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/delete/{id}")
