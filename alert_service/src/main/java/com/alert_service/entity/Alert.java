@@ -1,7 +1,6 @@
 package com.alert_service.entity;
 
 import jakarta.persistence.*;
-
 import java.time.Instant;
 
 @Entity
@@ -9,10 +8,10 @@ public class Alert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
 
     @Column(name = "coin_name")
     private String coinName;
@@ -28,7 +27,7 @@ public class Alert {
     public Alert() {
     }
 
-    public Alert(long id, long userId, String coinName, Double thresholdPrice, boolean triggered, Instant createdAt) {
+    public Alert(Long id, Long userId, String coinName, Double thresholdPrice, boolean triggered, Instant createdAt) {
         this.id = id;
         this.userId = userId;
         this.coinName = coinName;
@@ -37,19 +36,19 @@ public class Alert {
         this.createdAt = createdAt;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
