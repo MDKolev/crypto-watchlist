@@ -1,7 +1,9 @@
 package com.alert_service.controller;
 
 import com.alert_service.entity.Alert;
+import com.alert_service.entity.UpdateThresholdPriceDTO;
 import com.alert_service.exception.AlertNotFoundException;
+import com.alert_service.exception.InvalidThresholdPriceException;
 import com.alert_service.service.AlertServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,17 @@ public class AlertController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PutMapping("/{id}/update")
+    public ResponseEntity<?> updateThresholdPrice(@PathVariable Long id, @RequestBody UpdateThresholdPriceDTO dto) {
+        try {
+            Alert alert = alertService.updateThresholdPrice(id, dto.getThresholdPrice());
+            return new ResponseEntity<>(alert, HttpStatus.ACCEPTED);
+        } catch (InvalidThresholdPriceException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getLocalizedMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deleteAlertById(@PathVariable Long id){
         try {
             alertService.deleteAlert(id);
