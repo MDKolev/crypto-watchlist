@@ -6,10 +6,8 @@ import com.coin_service.exception.CoinNotFoundException;
 import com.coin_service.exception.NoCoinsToSaveException;
 import com.coin_service.mapper.ManualMapper;
 import com.coin_service.repository.CoinRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
@@ -63,13 +61,10 @@ public class CoinServiceImpl implements CoinService {
         }
     }
 
-//    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlist(String id) {
-//        Coin coin = getCoinById(id).getBody();
-//
-//        CoinDetailsForWatchlistDTO coinDetailsForWatchlistDTO = manualMapper.mapCoinToCoinDetailsForWatchlistDTO(coin);
-//
-//        return ResponseEntity.ok(coinDetailsForWatchlistDTO);
-//    }
+    public CoinDetailsForWatchlistDTO getCoinDetailsForWatchlist(String id) {
+        Coin coin = getCoinById(id);
+        return manualMapper.mapCoinToCoinDetailsForWatchlistDTO(coin);
+    }
 
     @Scheduled(fixedDelay = 60000)
     public void updateCoins() {
