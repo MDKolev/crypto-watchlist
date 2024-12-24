@@ -2,6 +2,7 @@ package com.coin_service.service;
 
 import com.coin_service.entity.Coin;
 import com.coin_service.entity.CoinDetailsForWatchlistDTO;
+import com.coin_service.exception.NoCoinsToSaveException;
 import com.coin_service.mapper.ManualMapper;
 import com.coin_service.repository.CoinRepository;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +42,14 @@ public class CoinServiceImpl implements CoinService {
     }
 
     public void saveCoins() {
-//        List<Coin> allCoins = getAllCoins();
+        Flux<Coin> allCoins = getAllCoins();
+        List<Coin> coinsList = allCoins.collectList().block();
 
-//        allCoins.forEach(coinRepository::save);
-        System.out.println("saved");
+        if (coinsList != null && !coinsList.isEmpty()) {
+            coinsList.forEach(coinRepository::save);
+        } else {
+            throw new NoCoinsToSaveException();
+        }
     }
 
     public ResponseEntity<Coin> getCoinById(String id) {
