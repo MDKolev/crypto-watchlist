@@ -30,6 +30,11 @@ public class AlertController {
         return new ResponseEntity<>(alertService.getAllAlerts(), HttpStatus.OK);
     }
 
+    @GetMapping("/{coinId}/all")
+    public ResponseEntity<List<Alert>> getAllAlertsByCoinId(@PathVariable String coinId) {
+        return new ResponseEntity<>(alertService.getAllAlertsByCoinId(coinId), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getAlertById(@PathVariable Long id) {
         Alert alert = alertService.getAlertById(id);
