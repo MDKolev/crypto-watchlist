@@ -6,13 +6,17 @@ import com.alert_service.exception.CoinNotFoundException;
 import com.alert_service.exception.InvalidThresholdPriceException;
 import com.alert_service.repository.AlertRepository;
 import com.coin_service.entity.Coin;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AlertServiceImpl implements AlertService{
@@ -61,13 +65,13 @@ public class AlertServiceImpl implements AlertService{
     }
 
     public List<Alert> getAllAlertsByCoinId(String coinId) {
-            List<Alert> byCoinId = alertRepository.findByCoinId(coinId);
+        List<Alert> byCoinId = alertRepository.findByCoinId(coinId);
 
-            if (byCoinId.isEmpty()) {
-                throw new CoinNotFoundException();
-            } else {
-                return byCoinId;
-            }
+        if (byCoinId.isEmpty()) {
+            throw new CoinNotFoundException();
+        } else {
+            return byCoinId;
+        }
     }
 
     public Alert updateThresholdPrice(Long id, Double thresholdPrice) {
