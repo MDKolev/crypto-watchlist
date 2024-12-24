@@ -33,3 +33,5 @@ spring:
   #api-key:
   #api-secret:
   #cloud-name:
+server:
+  port : 8081
