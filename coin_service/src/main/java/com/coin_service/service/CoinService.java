@@ -11,8 +11,8 @@ public interface CoinService {
 
     Flux<Coin> getAllCoins();
     void saveCoins();
-    ResponseEntity<Coin> getCoinById(String id);
-    ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlist(String id);
+    Coin getCoinById(String id);
+//    ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlist(String id);
     void updateCoins();
 
 }

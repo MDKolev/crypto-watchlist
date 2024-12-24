@@ -2,6 +2,7 @@ package com.coin_service.service;
 
 import com.coin_service.entity.Coin;
 import com.coin_service.entity.CoinDetailsForWatchlistDTO;
+import com.coin_service.exception.CoinNotFoundException;
 import com.coin_service.exception.NoCoinsToSaveException;
 import com.coin_service.mapper.ManualMapper;
 import com.coin_service.repository.CoinRepository;
@@ -52,24 +53,23 @@ public class CoinServiceImpl implements CoinService {
         }
     }
 
-    public ResponseEntity<Coin> getCoinById(String id) {
+    public Coin getCoinById(String id) {
         Optional<Coin> coin = coinRepository.findById(id);
 
         if (coin.isPresent()) {
-            Coin foundCoin = coin.get();
-            return ResponseEntity.ok(foundCoin);
+            return coin.get();
         } else {
-            return null;
+            throw new CoinNotFoundException(id);
         }
     }
 
-    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlist(String id) {
-        Coin coin = getCoinById(id).getBody();
-
-        CoinDetailsForWatchlistDTO coinDetailsForWatchlistDTO = manualMapper.mapCoinToCoinDetailsForWatchlistDTO(coin);
-
-        return ResponseEntity.ok(coinDetailsForWatchlistDTO);
-    }
+//    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlist(String id) {
+//        Coin coin = getCoinById(id).getBody();
+//
+//        CoinDetailsForWatchlistDTO coinDetailsForWatchlistDTO = manualMapper.mapCoinToCoinDetailsForWatchlistDTO(coin);
+//
+//        return ResponseEntity.ok(coinDetailsForWatchlistDTO);
+//    }
 
     @Scheduled(fixedDelay = 60000)
     public void updateCoins() {
