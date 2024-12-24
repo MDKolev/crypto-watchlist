@@ -12,4 +12,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNoCoinsToSaveException(NoCoinsToSaveException exception ) {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(exception.getMessage());
     }
+
+    @ExceptionHandler(CoinNotFoundException.class)
+    public ResponseEntity<String> handleCoinNotFoundException(CoinNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
 }
