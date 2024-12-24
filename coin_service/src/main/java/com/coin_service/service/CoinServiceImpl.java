@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 import java.util.*;
 
@@ -15,17 +17,17 @@ import java.util.*;
 @Service
 public class CoinServiceImpl implements CoinService {
 
-    private final String API_URL = "https://api.coingecko.com/api/v3";
+    private final String API_URL = "/coins/markets?vs_currency=usd";
 
-    private final RestTemplate restTemplate;
+    private final WebClient webClient;
 
     private final CoinRepository coinRepository;
 
     private final ManualMapper manualMapper;
 
 
-    public CoinServiceImpl(RestTemplate restTemplate, CoinRepository coinRepository, ManualMapper manualMapper) {
-        this.restTemplate = restTemplate;
+    public CoinServiceImpl(WebClient webClient, CoinRepository coinRepository, ManualMapper manualMapper) {
+        this.webClient = webClient;
         this.coinRepository = coinRepository;
         this.manualMapper = manualMapper;
     }
@@ -34,23 +36,14 @@ public class CoinServiceImpl implements CoinService {
 //    private String apiKey;
 
 
-    public List<Coin> getAllCoins() {
-        String url = String.format("%s/coins/markets?vs_currency=usd", API_URL);
-
-        ResponseEntity<Coin[]> response = restTemplate.getForEntity(url, Coin[].class);
-
-        Coin[] coins = response.getBody();
-        if (coins.length == 0) {
-            return List.of();
-        }
-
-        return Arrays.asList(coins);
+    public Flux<Coin> getAllCoins() {
+        return webClient.get().uri(API_URL).retrieve().bodyToFlux(Coin.class);
     }
 
     public void saveCoins() {
-        List<Coin> allCoins = getAllCoins();
+//        List<Coin> allCoins = getAllCoins();
 
-        allCoins.forEach(coinRepository::save);
+//        allCoins.forEach(coinRepository::save);
         System.out.println("saved");
     }
 
