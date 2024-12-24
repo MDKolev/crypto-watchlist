@@ -3,8 +3,10 @@ package com.coin_service.controller;
 import com.coin_service.entity.Coin;
 import com.coin_service.entity.CoinDetailsForWatchlistDTO;
 import com.coin_service.service.CoinService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class CoinController {
     }
 
     @GetMapping("/all")
-    public List<Coin> getAllCoins() {
-        return coinService.getAllCoins();
+    public Flux<Coin> getAllCoins() {
+        return ResponseEntity.status(HttpStatus.OK).body(coinService.getAllCoins()).getBody();
     }
 
     @PutMapping("/save")
