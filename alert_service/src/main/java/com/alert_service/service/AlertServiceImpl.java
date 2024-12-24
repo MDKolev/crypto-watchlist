@@ -2,6 +2,7 @@ package com.alert_service.service;
 
 import com.alert_service.entity.Alert;
 import com.alert_service.exception.AlertNotFoundException;
+import com.alert_service.exception.InvalidThresholdPriceException;
 import com.alert_service.repository.AlertRepository;
 import com.coin_service.entity.Coin;
 import org.springframework.stereotype.Service;
@@ -52,13 +53,28 @@ public class AlertServiceImpl implements AlertService{
         if (alert.isPresent()) {
             return alert.get();
         } else {
-            throw new AlertNotFoundException("Count not find alert with ID: " + id);
+            throw new AlertNotFoundException("Could not find alert with ID: " + id);
+        }
+    }
+
+    public Alert updateThresholdPrice(Long id, Double thresholdPrice) {
+        if(!alertRepository.existsById(id)) {
+            throw new AlertNotFoundException("Could not find alert with ID: " + id);
+        }
+
+        if(thresholdPrice > 0) {
+            Alert alertById = getAlertById(id);
+            alertById.setThresholdPrice(thresholdPrice);
+            alertRepository.save(alertById);
+            return alertById;
+        } else {
+            throw new InvalidThresholdPriceException("Invalid threshold price - " + thresholdPrice);
         }
     }
 
     public void deleteAlert(Long id) {
         if(!alertRepository.existsById(id)) {
-            throw new AlertNotFoundException("Count not find alert with ID: " + id);
+            throw new AlertNotFoundException("Could not find alert with ID: " + id);
         }
         alertRepository.deleteById(id);
     }

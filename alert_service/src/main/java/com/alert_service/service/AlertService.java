@@ -1,6 +1,7 @@
 package com.alert_service.service;
 
 import com.alert_service.entity.Alert;
+import com.alert_service.entity.UpdateThresholdPriceDTO;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public interface AlertService {
     List<Alert> getAllAlerts();
 
     Alert getAlertById(Long id);
+
+    Alert updateThresholdPrice(Long id, Double thresholdPrice);
 
     void deleteAlert(Long id);
 
