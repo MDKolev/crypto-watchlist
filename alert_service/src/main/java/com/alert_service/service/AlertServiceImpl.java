@@ -92,4 +92,21 @@ public class AlertServiceImpl implements AlertService{
         alertRepository.deleteById(id);
     }
 
+    @Scheduled(fixedDelay = 60000)
+    private void checkAlertsThreshold() {
+        List<Alert> alerts = alertRepository.findAll();
+
+        for (Alert alert : alerts) {
+            Coin coin = fetchCoinById(alert.getCoinId()).block();
+
+            if (coin != null) {
+                double currentPrice = coin.getCurrent_price().doubleValue();
+                if (currentPrice >= alert.getThresholdPrice()) {
+                    alert.setTriggered(true);
+                    alertRepository.save(alert);
+                    System.out.println("Alert triggered for coin: " + alert.getCoinId() + " at price: " + currentPrice);
+                }
+            }
+        }
+    }
 }
