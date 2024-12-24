@@ -32,13 +32,13 @@ public class CoinController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Coin> getCoinByID(@PathVariable("id") String id) {
-        return coinService.getCoinById(id);
+        return new ResponseEntity<>(coinService.getCoinById(id), HttpStatus.FOUND);
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlistDTO(@PathVariable("id") String id) {
-        return coinService.getCoinDetailsForWatchlist(id);
-    }
+//    @GetMapping("/details/{id}")
+//    public ResponseEntity<CoinDetailsForWatchlistDTO> getCoinDetailsForWatchlistDTO(@PathVariable("id") String id) {
+//        return coinService.getCoinDetailsForWatchlist(id);
+//    }
 
 }
 
