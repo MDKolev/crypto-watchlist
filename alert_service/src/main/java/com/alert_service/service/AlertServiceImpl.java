@@ -60,6 +60,16 @@ public class AlertServiceImpl implements AlertService{
         }
     }
 
+    public List<Alert> getAllAlertsByCoinId(String coinId) {
+            List<Alert> byCoinId = alertRepository.findByCoinId(coinId);
+
+            if (byCoinId.isEmpty()) {
+                throw new CoinNotFoundException();
+            } else {
+                return byCoinId;
+            }
+    }
+
     public Alert updateThresholdPrice(Long id, Double thresholdPrice) {
         if(thresholdPrice > 0) {
             Alert alertById = getAlertById(id);

@@ -13,6 +13,8 @@ public interface AlertService {
 
     Alert getAlertById(Long id);
 
+    List<Alert> getAllAlertsByCoinId(String coinId);
+
     Alert updateThresholdPrice(Long id, Double thresholdPrice);
 
     void deleteAlert(Long id);
