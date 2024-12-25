@@ -29,7 +29,7 @@ public class AlertServiceImpl implements AlertService{
         this.webClient = webClient;
     }
 
-    private Mono<Coin> fetchCoinById(String coinId) {
+    public Mono<Coin> fetchCoinById(String coinId) {
         return webClient.get().uri("/{id}", coinId)
                 .retrieve()
                 .bodyToMono(Coin.class);
