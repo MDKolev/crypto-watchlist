@@ -9,10 +9,10 @@ public class Watchlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true, nullable = false, name = "user_id")
-    private long userId;
+    private Long userId;
 
     @Column(unique = true, nullable = false, name = "watchlist_name")
     private String watchlistName;
@@ -27,7 +27,7 @@ public class Watchlist {
     public Watchlist() {
     }
 
-    public Watchlist(long id, long userId, String watchlistName, List<String> coins, FiatCurrency fiatCurrency) {
+    public Watchlist(Long id, Long userId, String watchlistName, List<String> coins, FiatCurrency fiatCurrency) {
         this.id = id;
         this.userId = userId;
         this.watchlistName = watchlistName;
@@ -35,11 +35,11 @@ public class Watchlist {
         this.fiatCurrency = fiatCurrency != null ? fiatCurrency : FiatCurrency.USD;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
