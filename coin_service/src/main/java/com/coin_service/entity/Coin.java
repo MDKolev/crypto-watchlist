@@ -71,7 +71,7 @@ public class Coin {
     private Number ath_change_percentage;
 
     @Column
-    private Instant ath_date;
+    private String ath_date;
 
     @Column
     private Number atl;
@@ -80,15 +80,15 @@ public class Coin {
     private Number atl_change_percentage;
 
     @Column
-    private Instant atl_date;
+    private String atl_date;
 
     @Column
-    private Instant last_updated;
+    private String last_updated;
 
     public Coin() {
     }
 
-    public Coin(String id, String symbol, String name, String image, Number current_price, Number market_cap, Number market_cap_rank, Number fully_diluted_valuation, Number total_volume, Number high_24h, Number low_24h, Number price_change_24h, Number price_change_percentage_24h, Number market_cap_change_24h, Number market_cap_change_percentage_24h, Number circulating_supply, Number total_supply, Number max_supply, Number ath, Number ath_change_percentage, Instant ath_date, Number atl, Number atl_change_percentage, Instant atl_date, Instant last_updated) {
+    public Coin(String id, String symbol, String name, String image, Number current_price, Number market_cap, Number market_cap_rank, Number fully_diluted_valuation, Number total_volume, Number high_24h, Number low_24h, Number price_change_24h, Number price_change_percentage_24h, Number market_cap_change_24h, Number market_cap_change_percentage_24h, Number circulating_supply, Number total_supply, Number max_supply, Number ath, Number ath_change_percentage, String ath_date, Number atl, Number atl_change_percentage, String atl_date, String last_updated) {
         this.id = id;
         this.symbol = symbol;
         this.name = name;
@@ -277,11 +277,11 @@ public class Coin {
         this.ath_change_percentage = ath_change_percentage;
     }
 
-    public Instant getAth_date() {
+    public String getAth_date() {
         return ath_date;
     }
 
-    public void setAth_date(Instant ath_date) {
+    public void setAth_date(String ath_date) {
         this.ath_date = ath_date;
     }
 
@@ -301,19 +301,19 @@ public class Coin {
         this.atl_change_percentage = atl_change_percentage;
     }
 
-    public Instant getAtl_date() {
+    public String getAtl_date() {
         return atl_date;
     }
 
-    public void setAtl_date(Instant atl_date) {
+    public void setAtl_date(String atl_date) {
         this.atl_date = atl_date;
     }
 
-    public Instant getLast_updated() {
+    public String getLast_updated() {
         return last_updated;
     }
 
-    public void setLast_updated(Instant last_updated) {
+    public void setLast_updated(String last_updated) {
         this.last_updated = last_updated;
     }
 }
