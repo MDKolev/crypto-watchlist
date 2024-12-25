@@ -4,8 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import java.time.Instant;
-
 @Entity
 public class Coin {
 
@@ -18,9 +16,6 @@ public class Coin {
 
     @Column
     private String name;
-
-    @Column
-    private String image;
 
     @Column
     private Number current_price;
@@ -88,11 +83,10 @@ public class Coin {
     public Coin() {
     }
 
-    public Coin(String id, String symbol, String name, String image, Number current_price, Number market_cap, Number market_cap_rank, Number fully_diluted_valuation, Number total_volume, Number high_24h, Number low_24h, Number price_change_24h, Number price_change_percentage_24h, Number market_cap_change_24h, Number market_cap_change_percentage_24h, Number circulating_supply, Number total_supply, Number max_supply, Number ath, Number ath_change_percentage, String ath_date, Number atl, Number atl_change_percentage, String atl_date, String last_updated) {
+    public Coin(String id, String symbol, String name, Number current_price, Number market_cap, Number market_cap_rank, Number fully_diluted_valuation, Number total_volume, Number high_24h, Number low_24h, Number price_change_24h, Number price_change_percentage_24h, Number market_cap_change_24h, Number market_cap_change_percentage_24h, Number circulating_supply, Number total_supply, Number max_supply, Number ath, Number ath_change_percentage, String ath_date, Number atl, Number atl_change_percentage, String atl_date, String last_updated) {
         this.id = id;
         this.symbol = symbol;
         this.name = name;
-        this.image = image;
         this.current_price = current_price;
         this.market_cap = market_cap;
         this.market_cap_rank = market_cap_rank;
@@ -139,14 +133,6 @@ public class Coin {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Number getCurrent_price() {
