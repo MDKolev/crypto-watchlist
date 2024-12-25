@@ -27,21 +27,21 @@ public class WatchlistServiceImpl implements WatchlistService {
     }
 
     @Override
-    public Watchlist getWatchlistById(long id) {
+    public Watchlist getWatchlistById(Long id) {
         return watchlistRepository.findById(id)
-                .orElseThrow(() -> new WatchlistNotFoundException("Could not find watchlist with ID: " + id));
+                .orElseThrow(() -> new WatchlistNotFoundException(id));
     }
 
     @Override
-    public void deleteWatchlistById(long id) {
+    public void deleteWatchlistById(Long id) {
         if(!watchlistRepository.existsById(id)) {
-            throw new WatchlistNotFoundException("Could not find watchlist with ID: " + id);
+            throw new WatchlistNotFoundException(id);
         }
         watchlistRepository.deleteById(id);
     }
 
     @Override
-    public Watchlist renameWatchlist(long id, String newName) {
+    public Watchlist renameWatchlist(Long id, String newName) {
         String updatedName = newName.trim();
         Watchlist watchlist = getWatchlistById(id);
         watchlist.setWatchlistName(updatedName);

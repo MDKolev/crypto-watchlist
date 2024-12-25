@@ -12,9 +12,9 @@ public interface WatchlistService {
 
     List<Watchlist> getAllWatchlists();
 
-    Watchlist getWatchlistById(long id);
+    Watchlist getWatchlistById(Long id);
 
-    void deleteWatchlistById(long id);
+    void deleteWatchlistById(Long id);
 
-    Watchlist renameWatchlist(long id, String newName);
+    Watchlist renameWatchlist(Long id, String newName);
 }
