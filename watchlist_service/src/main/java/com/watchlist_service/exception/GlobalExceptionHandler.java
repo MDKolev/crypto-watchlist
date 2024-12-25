@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(WatchlistNotFoundException.class)
-    public ResponseEntity<Object> handleWatchlistNotFound(WatchlistNotFoundException watchlistNotFoundException) {
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, watchlistNotFoundException.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleWatchlistNotFound(WatchlistNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 }
