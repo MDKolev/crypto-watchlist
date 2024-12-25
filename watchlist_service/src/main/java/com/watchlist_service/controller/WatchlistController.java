@@ -19,38 +19,34 @@ public class WatchlistController {
         this.watchlistService = watchlistService;
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<Watchlist> createWatchlist(@RequestBody Watchlist watchlist) {
         Watchlist savedWatchlist = watchlistService.createWatchlist(watchlist);
         return new ResponseEntity<>(savedWatchlist, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Watchlist>> getAllWatchlists() {
         List<Watchlist> allWatchlists = watchlistService.getAllWatchlists();
         return new ResponseEntity<>(allWatchlists, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Watchlist> getWatchlistById(@PathVariable long id) {
+    public ResponseEntity<Watchlist> getWatchlistById(@PathVariable Long id) {
         Watchlist watchlist = watchlistService.getWatchlistById(id);
-        return new ResponseEntity<>(watchlist, HttpStatus.OK);
+        return new ResponseEntity<>(watchlist, HttpStatus.FOUND);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteWatchlistById(@PathVariable long id) {
-        try {
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> deleteWatchlistById(@PathVariable Long id) {
             watchlistService.deleteWatchlistById(id);
             return ResponseEntity.ok("Watchlist with ID " +id + " was successfully deleted!");
-        } catch (WatchlistNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getLocalizedMessage());
-        }
     }
 
     @PutMapping("/{id}/rename")
-    public ResponseEntity<Watchlist> renameWatchlist(@PathVariable long id, @RequestBody String newName) {
+    public ResponseEntity<Watchlist> renameWatchlist(@PathVariable Long id, @RequestBody String newName) {
         Watchlist renamedWatchlist = watchlistService.renameWatchlist(id, newName);
-        return new ResponseEntity<>(renamedWatchlist, HttpStatus.OK);
+        return new ResponseEntity<>(renamedWatchlist, HttpStatus.ACCEPTED);
     }
 
 }
