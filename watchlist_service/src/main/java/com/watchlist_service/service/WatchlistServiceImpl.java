@@ -80,8 +80,8 @@ public class WatchlistServiceImpl implements WatchlistService {
         return fetchCoinFromDatabaseByCoinId(coinId)
                 .flatMap(coin -> {
                     Watchlist watchlist = getWatchlistById(id);
-                    Set<String> coins = watchlist.getCoins();
-                    checkIfCoinIsAdded(coins, coinId);
+                    Set<String> coins = checkIfCoinIsAdded(watchlist.getCoins(), coinId);
+                    watchlist.setCoins(coins);
                     watchlistRepository.save(watchlist);
                     return Mono.just(watchlist);
                 });
