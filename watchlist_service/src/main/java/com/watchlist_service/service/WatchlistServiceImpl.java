@@ -87,8 +87,23 @@ public class WatchlistServiceImpl implements WatchlistService {
                 });
     }
 
+    @Override
+    public void deleteCoinFromWatchlist(Long id, String coinId) {
+        Watchlist watchlist = getWatchlistById(id);
+        Set<String> coins = watchlist.getCoins();
+
+        if (coins.contains(coinId)) {
+            coins.remove(coinId);
+            watchlist.setCoins(coins);
+            watchlistRepository.save(watchlist);
+        } else {
+            throw new CoinNotFoundException(coinId);
+        }
+    }
+
     public Set<String> checkIfCoinIsAdded(Set<String> watchlistCoins, String coin) {
         Set<String> coins = new HashSet<>(watchlistCoins);
+
         if (!coins.contains(coin)){
             coins.add(coin);
             return coins;

@@ -24,4 +24,6 @@ public interface WatchlistService {
     Mono<Coin> fetchCoinFromDatabaseByCoinId(String coinId);
 
     Mono<Watchlist> addCoinToWatchlist(Long id, String coinId);
+
+    void deleteCoinFromWatchlist(Long id ,String coinId);
 }
