@@ -12,6 +12,9 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: true
   #  sql:
   #    init:
   #      mode: always
