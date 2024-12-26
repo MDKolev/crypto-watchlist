@@ -6,14 +6,14 @@ import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
 import com.watchlist_service.exception.WatchlistNotFoundException;
 import com.watchlist_service.repository.WatchlistRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class WatchlistServiceImpl implements WatchlistService {
@@ -34,7 +34,7 @@ public class WatchlistServiceImpl implements WatchlistService {
         watchlist.setWatchlistName(newWatchlistDTO.getWatchlistName());
         watchlist.setFiatCurrency(newWatchlistDTO.getFiatCurrency());
         watchlist.setUserId(1L);
-        List<String> newListOfCoins = new ArrayList<>();
+        Set<String> newListOfCoins = new HashSet<>();
         watchlist.setCoins(newListOfCoins);
 
         return watchlistRepository.save(watchlist);
@@ -79,7 +79,7 @@ public class WatchlistServiceImpl implements WatchlistService {
         return fetchCoinFromDatabaseByCoinId(coinId)
                 .flatMap(coin -> {
                     Watchlist watchlist = getWatchlistById(id);
-                    List<String> coins = watchlist.getCoins();
+                    Set<String> coins = watchlist.getCoins();
                     coins.add(coinId);
                     watchlistRepository.save(watchlist);
                     return Mono.just(watchlist);
