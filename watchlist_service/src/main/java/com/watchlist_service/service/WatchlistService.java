@@ -2,8 +2,10 @@ package com.watchlist_service.service;
 
 
 
+import com.coin_service.entity.Coin;
 import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface WatchlistService {
     void deleteWatchlistById(Long id);
 
     Watchlist renameWatchlist(Long id, String newName);
+
+    Mono<Coin> fetchCoinFromDatabaseByCoinId(String coinId);
+
+    Mono<Watchlist> addCoinToWatchlist(Long id, String coinId);
 }
