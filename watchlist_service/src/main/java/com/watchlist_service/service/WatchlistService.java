@@ -2,13 +2,14 @@ package com.watchlist_service.service;
 
 
 
+import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
 
 import java.util.List;
 
 public interface WatchlistService {
 
-    Watchlist createWatchlist(Watchlist watchlistName);
+    Watchlist createWatchlist(NewWatchlistDTO newWatchlistDTO);
 
     List<Watchlist> getAllWatchlists();
 

@@ -1,5 +1,6 @@
 package com.watchlist_service.service;
 
+import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
 import com.watchlist_service.exception.WatchlistNotFoundException;
 import com.watchlist_service.repository.WatchlistRepository;
@@ -17,7 +18,13 @@ public class WatchlistServiceImpl implements WatchlistService {
     }
 
     @Override
-    public Watchlist createWatchlist(Watchlist watchlist) {
+    public Watchlist createWatchlist(NewWatchlistDTO newWatchlistDTO) {
+        Watchlist watchlist = new Watchlist();
+
+        watchlist.setWatchlistName(newWatchlistDTO.getWatchlistName());
+        watchlist.setFiatCurrency(newWatchlistDTO.getFiatCurrency());
+        watchlist.setUserId(1L);
+
         return watchlistRepository.save(watchlist);
     }
 
