@@ -1,8 +1,10 @@
 package com.watchlist_service.controller;
 
+import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
 import com.watchlist_service.exception.WatchlistNotFoundException;
 import com.watchlist_service.service.WatchlistService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,8 @@ public class WatchlistController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Watchlist> createWatchlist(@RequestBody Watchlist watchlist) {
-        Watchlist savedWatchlist = watchlistService.createWatchlist(watchlist);
+    public ResponseEntity<Watchlist> createWatchlist(@Valid @RequestBody NewWatchlistDTO newWatchlistDTO) {
+        Watchlist savedWatchlist = watchlistService.createWatchlist(newWatchlistDTO);
         return new ResponseEntity<>(savedWatchlist, HttpStatus.CREATED);
     }
 
