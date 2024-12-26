@@ -57,4 +57,10 @@ public class WatchlistController {
         Mono<Watchlist> updatedWatchlist = watchlistService.addCoinToWatchlist(id, coinId);
         return new ResponseEntity<>(updatedWatchlist, HttpStatus.ACCEPTED);
     }
+
+    @DeleteMapping("/{id}/{coinId}/delete")
+    public ResponseEntity<String> deleteCoinFromWatchlist(@PathVariable Long id, @PathVariable String coinId) {
+        watchlistService.deleteCoinFromWatchlist(id, coinId);
+        return ResponseEntity.ok("'"+coinId+"' was successfully deleted from watchlist with ID: " + id);
+    }
 }
