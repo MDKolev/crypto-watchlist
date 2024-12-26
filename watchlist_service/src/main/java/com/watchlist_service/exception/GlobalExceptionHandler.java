@@ -30,4 +30,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleCoinNotFoundException(CoinNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
+
+    @ExceptionHandler(WatchlistContainThisCoinException.class)
+    public ResponseEntity<String> handleWatchlistAlreadyContainThisCoin(WatchlistContainThisCoinException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(exception.getMessage());
+    }
 }
