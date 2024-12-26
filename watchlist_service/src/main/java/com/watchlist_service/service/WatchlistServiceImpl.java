@@ -4,6 +4,7 @@ import com.coin_service.entity.Coin;
 import com.coin_service.exception.CoinNotFoundException;
 import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
+import com.watchlist_service.exception.WatchlistContainThisCoinException;
 import com.watchlist_service.exception.WatchlistNotFoundException;
 import com.watchlist_service.repository.WatchlistRepository;
 import org.springframework.http.HttpStatusCode;
@@ -80,9 +81,19 @@ public class WatchlistServiceImpl implements WatchlistService {
                 .flatMap(coin -> {
                     Watchlist watchlist = getWatchlistById(id);
                     Set<String> coins = watchlist.getCoins();
-                    coins.add(coinId);
+                    checkIfCoinIsAdded(coins, coinId);
                     watchlistRepository.save(watchlist);
                     return Mono.just(watchlist);
                 });
+    }
+
+    public Set<String> checkIfCoinIsAdded(Set<String> watchlistCoins, String coin) {
+        Set<String> coins = new HashSet<>(watchlistCoins);
+        if (!coins.contains(coin)){
+            coins.add(coin);
+            return coins;
+        } else {
+            throw new WatchlistContainThisCoinException(coin);
+        }
     }
 }
