@@ -2,7 +2,7 @@ package com.watchlist_service.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Watchlist {
@@ -18,7 +18,7 @@ public class Watchlist {
     private String watchlistName;
 
     @Column()
-    private List<String> coins;
+    private Set<String> coins;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "fiat_currency", nullable = false)
@@ -27,7 +27,7 @@ public class Watchlist {
     public Watchlist() {
     }
 
-    public Watchlist(Long id, Long userId, String watchlistName, List<String> coins, FiatCurrency fiatCurrency) {
+    public Watchlist(Long id, Long userId, String watchlistName, Set<String> coins, FiatCurrency fiatCurrency) {
         this.id = id;
         this.userId = userId;
         this.watchlistName = watchlistName;
@@ -55,11 +55,11 @@ public class Watchlist {
         this.watchlistName = watchlistName;
     }
 
-    public List<String> getCoins() {
+    public Set<String> getCoins() {
         return coins;
     }
 
-    public void setCoins(List<String> coins) {
+    public void setCoins(Set<String> coins) {
         this.coins = coins;
     }
 
