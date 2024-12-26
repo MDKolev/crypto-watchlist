@@ -1,13 +1,14 @@
 package com.watchlist_service.controller;
 
+import com.coin_service.entity.Coin;
 import com.watchlist_service.entity.NewWatchlistDTO;
 import com.watchlist_service.entity.Watchlist;
-import com.watchlist_service.exception.WatchlistNotFoundException;
 import com.watchlist_service.service.WatchlistService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -51,4 +52,9 @@ public class WatchlistController {
         return new ResponseEntity<>(renamedWatchlist, HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/{id}/{coinId}/add")
+    public ResponseEntity<Mono<Watchlist>> addCoinToWatchlist(@PathVariable Long id, @PathVariable String coinId) {
+        Mono<Watchlist> updatedWatchlist = watchlistService.addCoinToWatchlist(id, coinId);
+        return new ResponseEntity<>(updatedWatchlist, HttpStatus.ACCEPTED);
+    }
 }
