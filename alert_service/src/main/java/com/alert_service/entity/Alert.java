@@ -22,12 +22,13 @@ public class Alert {
     @Column
     private boolean triggered = false;
 
-    private Instant createdAt;
+    @Column(name = "created_at")
+    private String createdAt;
 
     public Alert() {
     }
 
-    public Alert(Long id, Long userId, String coinId, Double thresholdPrice, boolean triggered, Instant createdAt) {
+    public Alert(Long id, Long userId, String coinId, Double thresholdPrice, boolean triggered, String createdAt) {
         this.id = id;
         this.userId = userId;
         this.coinId = coinId;
@@ -76,11 +77,11 @@ public class Alert {
         this.triggered = triggered;
     }
 
-    public Instant getCreatedAt(Instant now) {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }
