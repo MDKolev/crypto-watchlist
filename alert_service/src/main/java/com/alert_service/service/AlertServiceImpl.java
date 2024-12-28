@@ -8,45 +8,48 @@ import com.alert_service.repository.AlertRepository;
 import com.coin_service.entity.Coin;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AlertServiceImpl implements AlertService{
 
-    private final AlertRepository alertRepository;
-    private final WebClient webClient;
+    private final String COINS_URL = "http://localhost:8081/api/coins";
 
-    public AlertServiceImpl(AlertRepository alertRepository, WebClient webClient) {
+    private final AlertRepository alertRepository;
+    private final RestTemplate restTemplate;
+
+    public AlertServiceImpl(AlertRepository alertRepository, RestTemplate restTemplate) {
         this.alertRepository = alertRepository;
-        this.webClient = webClient;
+        this.restTemplate = restTemplate;
     }
 
-    public Mono<Coin> fetchCoinById(String coinId) {
-        return webClient.get().uri("/{id}", coinId)
-                .retrieve()
-                .bodyToMono(Coin.class);
+    public Coin fetchCoinById(String coinId) {
+        String url = String.format("%s/%s", COINS_URL, coinId);
+
+        try {
+            return restTemplate.getForEntity(url, Coin.class).getBody();
+        } catch (HttpClientErrorException exception) {
+            throw new CoinNotFoundException(coinId);
+        }
     }
 
     public Alert createAlert(Alert alert) {
-        Coin coin = fetchCoinById(alert.getCoinId()).block();
+        Coin coin = fetchCoinById(alert.getCoinId());
 
         if (coin != null) {
             Alert newAlert = new Alert();
             newAlert.setCoinId(coin.getId());
             newAlert.setUserId(null);
             newAlert.setThresholdPrice(alert.getThresholdPrice());
-            newAlert.setCreatedAt(Instant.now());
+            newAlert.setCreatedAt(Instant.now().toString());
             return alertRepository.save(newAlert);
         } else {
-            throw new CoinNotFoundException();
+            throw new CoinNotFoundException(coin.getId());
         }
     }
 
@@ -68,7 +71,7 @@ public class AlertServiceImpl implements AlertService{
         List<Alert> byCoinId = alertRepository.findByCoinId(coinId);
 
         if (byCoinId.isEmpty()) {
-            throw new CoinNotFoundException();
+            throw new CoinNotFoundException(coinId);
         } else {
             return byCoinId;
         }
@@ -97,7 +100,7 @@ public class AlertServiceImpl implements AlertService{
         List<Alert> alerts = alertRepository.findAll();
 
         for (Alert alert : alerts) {
-            Coin coin = fetchCoinById(alert.getCoinId()).block();
+            Coin coin = fetchCoinById(alert.getCoinId());
 
             if (coin != null) {
                 double currentPrice = coin.getCurrent_price().doubleValue();
