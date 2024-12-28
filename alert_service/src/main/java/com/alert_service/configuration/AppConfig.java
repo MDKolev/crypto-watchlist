@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class AppConfig {
 
     @Bean
-    public WebClient webClient(WebClient.Builder builder) {
-        return builder.baseUrl("http://localhost:8081/api/coins").build();
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
