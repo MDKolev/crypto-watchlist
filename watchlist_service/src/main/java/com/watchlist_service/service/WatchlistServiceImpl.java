@@ -81,17 +81,14 @@ public class WatchlistServiceImpl implements WatchlistService {
         }
     }
 
-//    @Override
-//    public Mono<Watchlist> addCoinToWatchlist(Long id, String coinId) {
-//        return fetchCoinFromDatabaseByCoinId(coinId)
-//                .flatMap(coin -> {
-//                    Watchlist watchlist = getWatchlistById(id);
-//                    Set<String> coins = checkIfCoinIsAdded(watchlist.getCoins(), coinId);
-//                    watchlist.setCoins(coins);
-//                    watchlistRepository.save(watchlist);
-//                    return Mono.just(watchlist);
-//                });
-//    }
+    @Override
+    public Watchlist addCoinToWatchlist(Long id, String coinId) {
+        Watchlist watchlist = getWatchlistById(id);
+        Set<String> coins = watchlist.getCoins();
+        watchlist.setCoins(checkIfCoinIsAdded(coins,coinId));
+        watchlistRepository.save(watchlist);
+        return watchlist;
+    }
 
     @Override
     public void deleteCoinFromWatchlist(Long id, String coinId) {

@@ -23,7 +23,7 @@ public interface WatchlistService {
 
     Coin fetchCoinFromDatabaseByCoinId(String coinId);
 
-//    Mono<Watchlist> addCoinToWatchlist(Long id, String coinId);
+    Watchlist addCoinToWatchlist(Long id, String coinId);
 
     void deleteCoinFromWatchlist(Long id ,String coinId);
 }
