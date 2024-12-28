@@ -3,6 +3,7 @@ package com.coin_service.controller;
 import com.coin_service.entity.Coin;
 import com.coin_service.entity.CoinDetailsForWatchlistDTO;
 import com.coin_service.service.CoinService;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,9 @@ public class CoinController {
     }
 
     @PutMapping("/save")
-    public void saveCoins() {
+    public ResponseEntity<String> saveCoins() {
         coinService.saveCoins();
+        return ResponseEntity.status(HttpStatus.OK).body("Coins saved successfully!");
     }
 
     @GetMapping("/{id}")
