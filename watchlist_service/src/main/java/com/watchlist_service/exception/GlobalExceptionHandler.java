@@ -35,4 +35,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleWatchlistAlreadyContainThisCoin(WatchlistContainThisCoinException exception) {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(exception.getMessage());
     }
+
+    @ExceptionHandler(WatchlistAlreadyExistException.class)
+    public ResponseEntity<String> handleWatchlistAlreadyExist(WatchlistAlreadyExistException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(exception.getMessage());
+    }
 }
