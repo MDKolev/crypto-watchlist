@@ -4,12 +4,15 @@ import com.coin_service.entity.Coin;
 import com.coin_service.entity.CoinDetailsForWatchlistDTO;
 import com.coin_service.exception.CoinNotFoundException;
 import com.coin_service.exception.NoCoinsToSaveException;
+import com.coin_service.exception.ServersDownException;
 import com.coin_service.mapper.ManualMapper;
 import com.coin_service.repository.CoinRepository;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.*;
 
@@ -37,7 +40,9 @@ public class CoinServiceImpl implements CoinService {
 
 
     public Flux<Coin> getAllCoins() {
-        return webClient.get().uri(API_URL).retrieve().bodyToFlux(Coin.class);
+        return webClient.get().uri(API_URL).retrieve()
+                .onStatus(HttpStatusCode::isError, ex -> Mono.error(new ServersDownException()))
+                .bodyToFlux(Coin.class);
     }
 
     public void saveCoins() {
