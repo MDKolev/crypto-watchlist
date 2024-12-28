@@ -7,9 +7,9 @@ import com.watchlist_service.entity.Watchlist;
 import com.watchlist_service.exception.WatchlistContainThisCoinException;
 import com.watchlist_service.exception.WatchlistNotFoundException;
 import com.watchlist_service.repository.WatchlistRepository;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Mono;
 
 import java.util.HashSet;
@@ -19,13 +19,15 @@ import java.util.Set;
 @Service
 public class WatchlistServiceImpl implements WatchlistService {
 
+    private final String COINS_URL = "http://localhost:8081/api/coins";
+
     private final WatchlistRepository watchlistRepository;
 
-    private final WebClient webClient;
+    private final RestTemplate restTemplate;
 
-    public WatchlistServiceImpl(WatchlistRepository watchlistRepository, WebClient webClient) {
+    public WatchlistServiceImpl(WatchlistRepository watchlistRepository, RestTemplate restTemplate) {
         this.watchlistRepository = watchlistRepository;
-        this.webClient = webClient;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -69,23 +71,27 @@ public class WatchlistServiceImpl implements WatchlistService {
     }
 
     @Override
-    public Mono<Coin> fetchCoinFromDatabaseByCoinId(String coinId) {
-            return webClient.get().uri("/{coinId}", coinId).retrieve()
-                    .onStatus(HttpStatusCode::isError, clientResponse -> Mono.error(new CoinNotFoundException(coinId)))
-                    .bodyToMono(Coin.class);
+    public Coin fetchCoinFromDatabaseByCoinId(String coinId) {
+        String url = String.format("%s/%s", COINS_URL, coinId);
+
+        try {
+            return restTemplate.getForEntity(url, Coin.class).getBody();
+        } catch (HttpClientErrorException exception) {
+            throw new CoinNotFoundException(coinId);
+        }
     }
 
-    @Override
-    public Mono<Watchlist> addCoinToWatchlist(Long id, String coinId) {
-        return fetchCoinFromDatabaseByCoinId(coinId)
-                .flatMap(coin -> {
-                    Watchlist watchlist = getWatchlistById(id);
-                    Set<String> coins = checkIfCoinIsAdded(watchlist.getCoins(), coinId);
-                    watchlist.setCoins(coins);
-                    watchlistRepository.save(watchlist);
-                    return Mono.just(watchlist);
-                });
-    }
+//    @Override
+//    public Mono<Watchlist> addCoinToWatchlist(Long id, String coinId) {
+//        return fetchCoinFromDatabaseByCoinId(coinId)
+//                .flatMap(coin -> {
+//                    Watchlist watchlist = getWatchlistById(id);
+//                    Set<String> coins = checkIfCoinIsAdded(watchlist.getCoins(), coinId);
+//                    watchlist.setCoins(coins);
+//                    watchlistRepository.save(watchlist);
+//                    return Mono.just(watchlist);
+//                });
+//    }
 
     @Override
     public void deleteCoinFromWatchlist(Long id, String coinId) {
