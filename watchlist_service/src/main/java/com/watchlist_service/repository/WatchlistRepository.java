@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface WatchlistRepository extends JpaRepository<Watchlist, Long> {
-    Watchlist findByWatchlistName(String watchlistName);
+    Optional<Watchlist> findByWatchlistName(String watchlistName);
 }
