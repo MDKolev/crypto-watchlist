@@ -53,8 +53,8 @@ public class WatchlistController {
     }
 
     @PutMapping("/{id}/{coinId}/add")
-    public ResponseEntity<Mono<Watchlist>> addCoinToWatchlist(@PathVariable Long id, @PathVariable String coinId) {
-        Mono<Watchlist> updatedWatchlist = watchlistService.addCoinToWatchlist(id, coinId);
+    public ResponseEntity<Watchlist> addCoinToWatchlist(@PathVariable Long id, @PathVariable String coinId) {
+        Watchlist updatedWatchlist = watchlistService.addCoinToWatchlist(id, coinId);
         return new ResponseEntity<>(updatedWatchlist, HttpStatus.ACCEPTED);
     }
 
