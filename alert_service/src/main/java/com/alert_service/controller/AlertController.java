@@ -21,8 +21,7 @@ public class AlertController {
 
     @PostMapping("/new")
     public ResponseEntity<Alert> createAlert(@RequestBody Alert newAlert) {
-        Alert alert = alertService.createAlert(newAlert);
-        return ResponseEntity.status(HttpStatus.CREATED).body(alert);
+        return new ResponseEntity<>(alertService.createAlert(newAlert), HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
