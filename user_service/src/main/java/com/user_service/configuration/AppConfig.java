@@ -1,5 +1,6 @@
 package com.user_service.configuration;
 
+import com.user_service.exception.NoUserWIthThisEmailException;
 import com.user_service.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,7 @@ public class AppConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new NoUserWIthThisEmailException(username));
     }
 
     @Bean
