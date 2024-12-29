@@ -3,6 +3,7 @@ package com.user_service.auth;
 import com.user_service.configuration.JwtService;
 import com.user_service.entity.Role;
 import com.user_service.entity.User;
+import com.user_service.exception.NoUserWIthThisEmailException;
 import com.user_service.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -39,13 +40,13 @@ public class AuthenticationService {
         return new AuthenticationResponse(jwtToken);
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse login(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(() -> new NoUserWIthThisEmailException(request.getEmail()));
 
         String jwtToken = jwtService.generateToken(user);
         return new AuthenticationResponse(jwtToken);
