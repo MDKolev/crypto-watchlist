@@ -40,13 +40,13 @@ public class AlertController {
         return new ResponseEntity<>(alert, HttpStatus.FOUND);
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Alert> updateThresholdPrice(@PathVariable Long id, @RequestBody UpdateThresholdPriceDTO dto) {
             Alert alert = alertService.updateThresholdPrice(id, dto.getThresholdPrice());
             return new ResponseEntity<>(alert, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAlertById(@PathVariable Long id){
             alertService.deleteAlert(id);
             return ResponseEntity.ok("Alert with ID " + id + " was successfully deleted!");
