@@ -16,13 +16,13 @@ Each service has its own database, enabling separation of concerns and scalabili
 3. [Architecture](#architecture)
 -----------------------------------------------
 
-## 1. Microservices Overview
+## Microservices Overview
 - Coin Service - The Coin Service fetches cryptocurrency data from the CoinGecko API and stores it in a database. This allows the application to maintain an updated list of coins, including their prices and metadata.
 - Watchlist Service - The Watchlist Service allows users to create, manage, and delete watchlists for tracking cryptocurrencies. Each watchlist can include multiple coins and supports multiple fiat currencies like USD, EUR, and GBP.
 - Alert Service - The Alert Service lets users set alerts for specific coins. When a coin's price reaches the user-defined threshold, the alert is triggered.
 - User Service - The User service allows users to register and login in order to access their watchlists and alerts on each coin.
 -----------------------------------------------
-## 2. API Endpoints
+## API Endpoints
 ### Coin Service 
  - GET /api/coins/all: Fetches all coins from CoinGeckoAPI
  - PUT /api/coins/save: Saves all coins fetched from CoinGeckoAPI to a database
@@ -50,7 +50,7 @@ Each service has its own database, enabling separation of concerns and scalabili
   - POST /api/users/register: Registers a user with email and password
   - POST /api/users/authenticate: Authenticates the user by the provided credentials
 -----------------------------------------------
-## 3. Architecture
+## Architecture
 ### The project follows a microservices architecture, with each service communicating independently. Key components include:
   - Spring Boot: Framework for building each microservice.
   - MySQL: Database used by each service to persist data.
