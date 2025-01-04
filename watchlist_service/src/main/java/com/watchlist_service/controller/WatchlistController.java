@@ -40,25 +40,25 @@ public class WatchlistController {
         return new ResponseEntity<>(watchlist, HttpStatus.FOUND);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteWatchlistById(@PathVariable Long id) {
             watchlistService.deleteWatchlistById(id);
             return ResponseEntity.ok("Watchlist with ID " +id + " was successfully deleted!");
     }
 
-    @PutMapping("/{id}/rename")
+    @PutMapping("/{id}")
     public ResponseEntity<Watchlist> renameWatchlist(@PathVariable Long id, @RequestBody String newName) {
         Watchlist renamedWatchlist = watchlistService.renameWatchlist(id, newName);
         return new ResponseEntity<>(renamedWatchlist, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/{id}/{coinId}/add")
+    @PutMapping("/{id}/{coinId}")
     public ResponseEntity<Watchlist> addCoinToWatchlist(@PathVariable Long id, @PathVariable String coinId) {
         Watchlist updatedWatchlist = watchlistService.addCoinToWatchlist(id, coinId);
         return new ResponseEntity<>(updatedWatchlist, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{id}/{coinId}/delete")
+    @DeleteMapping("/{id}/{coinId}")
     public ResponseEntity<String> deleteCoinFromWatchlist(@PathVariable Long id, @PathVariable String coinId) {
         watchlistService.deleteCoinFromWatchlist(id, coinId);
         return ResponseEntity.ok("'"+coinId+"' was successfully deleted from watchlist with ID: " + id);

@@ -33,10 +33,9 @@ public class WatchlistServiceImpl implements WatchlistService {
 
     @Override
     public Watchlist createWatchlist(NewWatchlistDTO newWatchlistDTO) {
-        Watchlist checkForWatchlist = watchlistRepository.findByWatchlistName(newWatchlistDTO.getWatchlistName());
-        String watchlistName = checkForWatchlist.getWatchlistName();
+        Optional<Watchlist> checkForWatchlist = watchlistRepository.findByWatchlistName(newWatchlistDTO.getWatchlistName());
 
-        if (!watchlistName.isEmpty()) {
+        if (checkForWatchlist.isPresent()) {
             throw new WatchlistAlreadyExistException(newWatchlistDTO.getWatchlistName());
         }
 
