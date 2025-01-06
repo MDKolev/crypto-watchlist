@@ -48,7 +48,7 @@ Each service has its own database, enabling separation of concerns and scalabili
 
 ### User Service
   - POST /api/users/register: Registers a user with email and password
-  - POST /api/users/authenticate: Authenticates the user by the provided credentials
+  - POST /api/users/login: Authenticates the user by the provided credentials
 -----------------------------------------------
 ## Architecture
 ### The project follows a microservices architecture, with each service communicating independently. Key components include:
